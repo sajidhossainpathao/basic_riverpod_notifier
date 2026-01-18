@@ -33,7 +33,10 @@ class HomePage extends StatelessWidget {
         child: Consumer(
           builder: (context, ref, child) {
             print("Todo model builder called");
-            final provider = ref.watch(todoNotifierProvider);
+            final provider = ref.watch(
+              todoNotifierProvider.select((value) => value.counter),
+            );
+            // so by .select method selecting specific state
             return Column(
               children: [
                 IconButton(
@@ -42,7 +45,7 @@ class HomePage extends StatelessWidget {
                   },
                   icon: Icon(Icons.add),
                 ),
-                Text("${provider.counter}"),
+                Text("$provider"),
                 IconButton(
                   onPressed: () {
                     ref.read(todoNotifierProvider.notifier).decreaseCounter();
